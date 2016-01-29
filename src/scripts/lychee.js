@@ -6,8 +6,8 @@
 lychee = {
 
 	title           : document.title,
-	version         : '3.0.9',
-	version_code    : '030009',
+	version         : '3.0.8',
+	version_code    : '030008',
 
 	update_path     : '//update.electerious.com/index.json',
 	updateURL       : 'https://github.com/electerious/Lychee',
@@ -310,10 +310,11 @@ lychee.animate = function(obj, animation) {
 
 lychee.retinize = function(path = '') {
 
-	let extention = path.split('.').pop(),
-	    isPhoto   = extention!=='svg'
+	let pixelRatio = window.devicePixelRatio,
+	    extention  = path.split('.').pop(),
+	    hasRetina  = extention!=='svg'
 
-	if (isPhoto===true) {
+	if ((pixelRatio!=null && pixelRatio>1) && hasRetina===true) {
 
 		path = path.replace(/\.[^/.]+$/, '')
 		path = path + '@2x' + '.' + extention
@@ -322,7 +323,7 @@ lychee.retinize = function(path = '') {
 
 	return {
 		path,
-		isPhoto
+		hasRetina
 	}
 
 }

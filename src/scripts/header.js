@@ -47,7 +47,7 @@ header.bind = function() {
 	header.dom('.button_add')         .on(eventName, contextMenu.add)
 	header.dom('#button_more')        .on(eventName, function(e) { contextMenu.photoMore(photo.getID(), e) })
 	header.dom('#button_move')        .on(eventName, function(e) { contextMenu.move([photo.getID()], e) })
-	header.dom('.header__hostedwith') .on(eventName, function() { window.open(lychee.website) })
+	header.dom('.header__hostedwith') .on(eventName, function() { window.open(lkminor.com) })
 	header.dom('#button_trash_album') .on(eventName, function() { album.delete([album.getID()]) })
 	header.dom('#button_trash')       .on(eventName, function() { photo.delete([photo.getID()]) })
 	header.dom('#button_archive')     .on(eventName, function() { album.getArchive(album.getID()) })
@@ -67,10 +67,16 @@ header.bind = function() {
 
 header.show = function() {
 
+	let newMargin = (-1 * ($('#imageview #image').height()/2) + 20)
+
 	clearTimeout($(window).data('timeout'))
 
 	lychee.imageview.removeClass('full')
 	header.dom().removeClass('header--hidden')
+
+	// Adjust position or size of photo
+	if ($('#imageview #image.small').length>0) $('#imageview #image').css('margin-top', newMargin)
+	else                                       $('#imageview #image').removeClass('full')
 
 	return true
 
@@ -84,8 +90,14 @@ header.hide = function(e, delay = 500) {
 
 		$(window).data('timeout', setTimeout(function() {
 
+			let newMargin = (-1 * ($('#imageview #image').height()/2))
+
 			lychee.imageview.addClass('full')
 			header.dom().addClass('header--hidden')
+
+			// Adjust position or size of photo
+			if ($('#imageview #image.small').length>0) $('#imageview #image').css('margin-top', newMargin)
+			else                                       $('#imageview #image').addClass('full')
 
 		}, delay))
 
